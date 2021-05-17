@@ -1,4 +1,5 @@
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 
 function Logout(){
@@ -11,7 +12,8 @@ const logout = ()=>{
 
 return (
         <div>
-        <button onClick={logout} >LOGOUT</button>
+        {/* <button onClick={logout} >LOGOUT</button> */}
+        <Button variant="outline-success">LOGOUT</Button>
         </div>
         )
 }
