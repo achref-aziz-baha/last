@@ -1,6 +1,7 @@
 const express = require('express'); 
 const routes = express.Router() ; 
 const db = require('../models/USER1'); 
+const room = require('../models/room'); 
 const db1 = require('../models/BookingsHotel'); 
 const jwt = require('jsonwebtoken');
 const secret = 'ID22ZXS';
@@ -20,24 +21,61 @@ const auth = function(req, res, next) {
          res.json({message:"your token is wrong", isAuth : false})
         } else {
           req.email = decoded.email;
-          res.json({message:"Good to go " , isAuth : true})
+         
           next();
         }
       });
     }
 }
-  
-
-routes.post('/postdb', async (req,res)=>{
+  routes.post('/postdb', async (req,res)=>{
 try{
-const posted = await db1.create(req.body); 
-res.send('DONE!')
+  const post=await db1.create(req.body)
+  res.send("done")
 }
-catch(err){
-console.log(err)
-}
-}); 
+catch (error) {
+  console.log(error)
+  }
 
+  })
+  routes.post('/postroom', async (req,res)=>{
+    try{
+      const post=await room.create(req.body)
+      res.send("done")
+    }
+    catch (error) {
+      console.log(error)
+      }
+    
+      })
+
+// routes.get('/test', async (req,res)=>{
+// console.log(req.params)
+  // try{
+// const posted = await db.create({room :req.body}); 
+// res.send('DONE!')
+// }
+// catch(err){
+// console.log(err)
+// }
+// }); 
+routes.post('/getroom', auth ,async (req,res)=>{
+  console.log(req.body)
+  try{
+  
+   const update=await room.updateOne({_id :req.body._id ,dataI :"" ,dataO :"" },{dataI : req.body.datei , dataO : req.body.dateo })
+   console.log(update.n)
+   if(update.n){
+    res.send("welcome")
+  }
+  else  {
+    res.send("the room is not available")
+  }
+  }
+catch(error){
+  console.log(error)
+}
+
+})
 
 routes.get('/getall',async (req,res)=>{
   try {
@@ -52,9 +90,12 @@ routes.get('/getall',async (req,res)=>{
 
 
 routes.get('/getone/:id',async (req,res)=>{
-    try {
-    const found = await db1.findById({ _id : req.params.id }) 
-    res.send(found)
+  
+  try {
+    const hotel = await db1.findById(req.params.id)
+    const rooms = await room.find({hotelname : hotel.name})
+   res.send(rooms)
+    
     
     } 
     catch (error) {
@@ -63,7 +104,17 @@ routes.get('/getone/:id',async (req,res)=>{
 }); 
     
   
+routes.post('/email', async(req,res)=>{
+try {
 
+  
+
+  
+} 
+catch (error) {
+  
+}
+})
 
 
 

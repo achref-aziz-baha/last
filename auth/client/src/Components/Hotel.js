@@ -12,16 +12,18 @@ class Hotel extends React.Component{
     }
     
 componentDidMount(){
+ 
     axios.get(`http://localhost:3009/api/getone/${this.state.value}`)
     .then((response)=>{
+        console.log(response)
         this.setState({
-            data : response.data.room
+            data : response.data
         })
         console.log(this.state.data)
 
     })
-    .catch(err=>{
-        console.log(err)
+    .catch((error)=>{
+        console.log(error)
     })
     
 }

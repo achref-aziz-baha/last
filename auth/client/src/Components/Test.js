@@ -1,16 +1,27 @@
 import React from 'react'
 import {  Link } from 'react-router-dom';
-import Favorite from './Favorite'
+
+import axios from 'axios';
 class Test extends React.Component{
     constructor(props){
         super(props)
+    
+        
 
 this.onSubmit = this.onSubmit.bind(this)        
    
 }
 
 onSubmit(){
-return <Favorite like={this.props.name._id}/>
+    axios.get("http://localhost:3009/api/test")
+    .then((response)=>{
+       
+        console.log(response)
+
+    })
+    .catch(err=>{
+        console.log(err)
+    })
 
 }
 
@@ -22,7 +33,7 @@ return <Favorite like={this.props.name._id}/>
                 <p>{this.props.name.stars}</p>
                 <Link to={"/hotel/" + this.props.name._id}><img src={this.props.name.img} /></Link>
                 <p>{this.props.name.description}</p>
-                <button onClick={this.onSubmit}>LIKE</button>
+               
          </div>
        )
     }

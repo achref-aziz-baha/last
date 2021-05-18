@@ -7,18 +7,11 @@ const hotelSchema = new Schema({
  
     name : String, 
     adresse : String, 
-    starts : Number ,
+    stars : Number ,
     img : String , 
     description : String, 
-    room :[
-        {  
-            id : Number , 
-            img : String , 
-            price : Number , 
-            dataI : String , 
-            dataO : String , 
-        }
-    ]
+   
+    
   
 }); 
 
